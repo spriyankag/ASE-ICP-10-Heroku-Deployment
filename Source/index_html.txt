@@ -1,0 +1,53 @@
+   <html>
+                <head>
+                                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+                </head>
+                <body ng-app="ToDoList">
+
+                                <div ng-controller="MainController">
+
+                               
+                                </div>
+
+                <!-- Modules -->
+                <script type="text/javascript" src="js/app.js"></script>
+
+                <!-- Controllers -->
+                <script src="js/controllers/MainController.js"></script>
+
+                <!-- Directives -->
+                <script src="js/directives/singlelist.js"></script>
+
+</body>
+        
+        <div ng-controller="MainController">
+   <div class="menu" id="div_SearchContainer">
+    <h1 align="absolute" style="text-align: center; color: #1ab188">Lets know today's weather</h1>
+    <input type="text" id="txt_placeName" placeholder="Enter the date" style="margin-left: 300px"/>
+<!--    <input type="text" id="txt_searchFilter" placeholder="Enter the search query"/>-->
+    <button id="btn_getReview" ng-click="getVenues()">Get Info</button>
+    </div>
+    <div id="div_VenueList">
+      <h2 style="text-align: center; color: #1ab188"> Weather here:</h2>
+      <ul>
+       <li ng-repeat="venue in venueList" style="font-size: x-large; color: #5e5e5e; text-align: center; list-style: none; list-style-position:inside;">
+          <a  href="" ng-click="getReviews(venue)" style="font-size: x-large; color: #5e5e5e; text-align: center;">{{venue.name}}</a>
+        </li>
+      </ul>
+
+    </div>        
+          <div id="div_ReviewList" style="display:none;"  >
+
+
+          <p ng-model="ReviewWithSentiment">
+
+            <TABLE BORDER=2 CELLPADDING=4 ng-show="showt"> <TR> <TH style="color: aliceblue; background:#1ab188" COLSPAN=2>Sentiment Analysis From Using Alchemy API </TH> </TR>
+                <TR> <TD>Most recent review</TD> <TD>{{ReviewWithSentiment.reviewText}}</TD> </TR>
+                <TR> <TD>Sentiment of the review</TD> <TD>{{ReviewWithSentiment.sentiment}}</TD> </TR>
+                <TR> <TD>Sentiment Score of the review</TD> <TD>{{ReviewWithSentiment.score}}</TD> </TR>
+                <TR> <TH style="color: aliceblue; background:#1ab188" COLSPAN=2 BGCOLOR="#445553">{{ReviewWithSentiment.reviewText}}</TH> </TR>
+            </TABLE>
+            <span ng-show="shows" style="text-align: center;">{{noText}}</span>
+          </p>
+                </div>
+</html>

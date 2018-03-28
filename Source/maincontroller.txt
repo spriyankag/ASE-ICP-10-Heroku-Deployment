@@ -1,0 +1,61 @@
+app.controller('MainController', ['$scope', '$http', function($scope, $http) { 
+              
+    function hasOnlyNumbers(item) {
+      return /^[0-9]*$/.test(item)
+    }
+                
+    
+         $scope.getVenues = function () {
+             $scope.venueList = new Array();
+            var placeEntered = document.getElementById("txt_placeName").value;
+//            if (placeEntered != null && placeEntered != "" && searchQuery != null && searchQuery != "") {
+                document.getElementById('div_ReviewList').style.display = 'none';
+                //This is the API that gives the list of venues based on the place and search query.
+                var handler = $http.get("https://api.wunderground.com/api/4bbbc25f4f5946dd/conditions/q/ks/"+placeEntered+".json");
+                handler.success(function (data) {
+
+                                        //alert(data.current_observation.display_location.city);
+
+                        for (var i = 0; i < 1; i++) {
+                            $scope.venueList[i] = {
+                                "name": data.current_observation.display_location.full,
+				"pressure":  data.current_observation.pressure_mb;
+                        	"humidity":  data.current_observation.relative_humidity;
+                                "wind":data.current_observation.wind_mph + "mph";
+
+                             //   "degree":data.current_observation.display
+                                
+                            };
+                        }
+                  
+
+                })
+                handler.error(function (data) {
+                    alert("There was some error processing your request. Please try after some time.");
+                });
+//            }
+        }
+    
+    
+    $scope.addItem = function(itemList, item) {
+      // ISBN : 10 or 13 length and consisdt of only numbers
+      if ((item.length == 10 || item.length == 13) && hasOnlyNumbers(item)) {
+        console.log("ISBN");
+//        $http.get("https://www.googleapis.com/books/v1/volumes?q=isbn:" + item).success(function(data) {
+//          itemList.push("Title: " + data.items[0].volumeInfo.title + " // Author(s):" + data.items[0].volumeInfo.authors)
+//        })
+          $http.get("http://numbersapi.com/" + item).success(function(data) {
+          // itemList.push("Title: " + data.items[0].volumeInfo.title+" // Author(s):" + data.items[0].volumeInfo.authors)
+              console.log(data);
+        })
+          
+          
+      } else {
+        console.log("Not an ISBN")
+        itemList.push(item);
+      }
+        
+                }
+
+}]);
+
